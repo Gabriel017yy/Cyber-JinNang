@@ -96,10 +96,18 @@ function getAgentOutput(agent: Agent): string {
     // 倒序查找最后一个有文字内容的 assistant 消息
     for (let i = agent.state.messages.length - 1; i >= 0; i--) {
         const msg = agent.state.messages[i];
-        if (msg.role === "assistant") {
-            const textContent = msg.content.find(c => c.type === "text" && "text" in c && c.text.trim().length > 0);
-            if (textContent && "text" in textContent) {
-                return textContent.text;
+        if (msg.role === "assistant" && msg.content) {
+            // 如果 content 是字符串，强制转换为 string 避免 TS never 报错
+            if (typeof msg.content === "string") {
+                const textStr = msg.content as unknown as string;
+                if (textStr.trim().length > 0) return textStr;
+            } 
+            // 如果 content 是数组，查找 text 类型的块
+            else if (Array.isArray(msg.content)) {
+                const textContent = msg.content.find(c => c.type === "text" && "text" in c && c.text.trim().length > 0);
+                if (textContent && "text" in textContent) {
+                    return textContent.text;
+                }
             }
         }
     }

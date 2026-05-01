@@ -75,7 +75,8 @@ async function main() {
             console.log(`\n==============================================`);
             console.log(`📜 [最终决策奏折]`);
             console.log(`==============================================`);
-            console.log(`💡 核心摘要: \n   ${finalReport.executiveSummary}\n`);
+            const summary = finalReport.executiveSummary || (finalReport as any).summary || "未生成有效摘要";
+            console.log(`💡 核心摘要: \n   ${summary}\n`);
             
             console.log(`📊 底层情报汇编:`);
             finalReport.podResults.forEach(r => {
