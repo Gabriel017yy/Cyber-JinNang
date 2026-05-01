@@ -53,3 +53,22 @@ cp .env.example .env
 # 3. 启动引擎
 npm start
 ```
+
+## 🛠 技术基座 (Technical Foundation)
+本系统秉持“极简主义与不造轮子”的开发哲学，构建于以下坚实的技术基座之上：
+- **核心引擎**: 基于 **[pi-mono](https://github.com/badlogic/pi-mono)** 的 `@mariozechner/pi-agent-core` 进行了深度的事件机制解耦与多 Agent 并发重构。
+- **大模型接入**: 通过 `@mariozechner/pi-ai` 抹平了各大厂商 API 差异，原生支持 **MiniMax-M2.7**, **DeepSeek**, **Qwen** 等国内顶尖模型。
+- **搜索能力**: 接入 **Tavily API**，专为大模型打造的极速干净网页提取与聚合搜索引擎。
+- **强类型校验**: 使用 `@sinclair/typebox` 构建严格的输入/输出 Schema，杜绝大模型在复杂任务中的数据幻觉。
+- **终端美学**: 利用原生 Node.js `readline` 结合 `chalk`，打造出流畅无闪烁的多并发赛博大屏。
+
+## 🗺️ 技术路线 (Roadmap)
+- [x] **Phase 1: 概念验证与单向数据流** - 确立 Oracle -> Aegis -> Nexus 的三核状态机拓扑。
+- [x] **Phase 2: 纯原生技能实装** - 抛弃基于 Prompt 的脆弱技能，全面用 TypeScript 重写 WebSearch, Bash, ReadUrl 等底层工具。
+- [x] **Phase 3: 动态水平并发机制** - 实现 `Promise.all` 控制下的底层 Agent 按需克隆与 TUI 多行实时看板。
+- [ ] **Phase 4: 长效记忆融合 (Ongoing)** - 在系统启动时自动读取 `cyber_memory.json`，将其注回 Oracle 上下文，实现系统“防踩坑”与进化。
+- [ ] **Phase 5: 微信/Web 接入层** - 剥离 CLI 终端依赖，将 TUI 进度条重构为 WebSocket 事件流，为开发跨端 UI（如接入微信群或极简 Web 面板）铺平道路。
+
+## 🙏 致谢 (Acknowledgements)
+- 感谢 **[Mario Zechner (@badlogic)](https://github.com/badlogic)** 开源的 `pi-mono` 项目，其精妙优雅的底层 Agent Loop 与 Provider 抽象层，为本作免去了极大的底层通信开销。
+- 本项目架构设计灵感来源于 **Stafford Beer** 在 1970 年代为智利政府设计的 **Project Cybersyn** (赛博协同控制工程)，以及中国古代极具智慧的**“言官/保民官”监察封驳制度**。
