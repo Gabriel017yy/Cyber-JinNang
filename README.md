@@ -1,14 +1,21 @@
-# Cyber-Stratagem (Project JinNang)
+<div align="center">
+  <h1>⛩️ Cyber-JinNang — Cyber-Stratagem Engine</h1>
+  <p><em>The Algorithmic Bureaucracy for Multi-Agent Orchestration</em></p>
 
-[🇨🇳 简体中文](README_zh.md) | [🇺🇸 English](README.md)
+  <p>
+    <a href="README_zh.md">🇨🇳 简体中文</a> | <a href="README.md">🇺🇸 English</a>
+  </p>
 
-![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue)
-![pi-mono](https://img.shields.io/badge/Powered%20by-pi--mono-black)
-![License](https://img.shields.io/badge/License-MIT-green)
+  <p>
+    <img src="https://img.shields.io/badge/TypeScript-5.3-blue" alt="TypeScript" />
+    <img src="https://img.shields.io/badge/Powered%20by-pi--mono-black" alt="pi-mono" />
+    <img src="https://img.shields.io/badge/License-MIT-green" alt="License" />
+  </p>
+</div>
 
-A minimalist, high-performance Multi-Agent orchestration engine inspired by the Tang Dynasty's "Three Departments and Six Ministries" bureaucracy and Stafford Beer's Viable System Model (VSM). 
+**Cyber-JinNang** (Cyber-Stratagem) is a minimalist, high-performance Multi-Agent orchestration engine inspired by the Tang Dynasty's "Three Departments and Six Ministries" bureaucracy and Stafford Beer's Viable System Model (VSM). 
 
-Cyber-Stratagem (also known by its Chinese codename "Cyber-JinNang" / 赛博锦囊) is designed to replace traditional chatbot interactions with an **algorithmic bureaucracy**. It dynamically decomposes complex user intents into parallel execution blueprints, routes them to specialized executor pods, and synthesizes the results into actionable strategic guidelines.
+It is designed to replace traditional chatbot interactions with an **algorithmic bureaucracy**. It dynamically decomposes complex user intents into parallel execution blueprints, routes them to specialized executor pods, and synthesizes the results into actionable strategic guidelines.
 
 ## 🌟 Core Features
 

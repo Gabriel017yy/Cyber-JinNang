@@ -1,14 +1,21 @@
-# 赛博锦囊 (Cyber-Stratagem)
+<div align="center">
+  <h1>⛩️ Cyber-JinNang — 赛博多智能体决策引擎</h1>
+  <p><em>极简主义的算法官僚体系，重塑 AI 协同决策</em></p>
 
-[🇺🇸 English](README.md) | [🇨🇳 简体中文](README_zh.md)
+  <p>
+    <a href="README.md">🇺🇸 English</a> | <a href="README_zh.md">🇨🇳 简体中文</a>
+  </p>
 
-![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue)
-![pi-mono](https://img.shields.io/badge/Powered%20by-pi--mono-black)
-![License](https://img.shields.io/badge/License-MIT-green)
+  <p>
+    <img src="https://img.shields.io/badge/TypeScript-5.3-blue" alt="TypeScript" />
+    <img src="https://img.shields.io/badge/Powered%20by-pi--mono-black" alt="pi-mono" />
+    <img src="https://img.shields.io/badge/License-MIT-green" alt="License" />
+  </p>
+</div>
 
-一个极简主义、高性能的多智能体（Multi-Agent）编排引擎，其架构灵感源自大唐的“三省六部制”以及 Stafford Beer 的控制论“可见系统模型（VSM）”。
+**Cyber-JinNang** (英文别名: Cyber-Stratagem) 是一个极简主义、高性能的多智能体（Multi-Agent）编排引擎。其架构灵感源自大唐的“三省六部制”以及 Stafford Beer 的控制论“可见系统模型（VSM）”。
 
-赛博锦囊 (代号：Cyber-JinNang) 旨在用**算法官僚体系**取代传统的聊天机器人交互。它能够动态地将复杂的用户意图拆解为并行的执行蓝图，路由给专门的底层特工节点（Pods），并将执行结果汇总为极具操作性的战略指导方针（即“锦囊三策”）。
+它旨在用**算法官僚体系**取代传统的聊天机器人交互，能够动态地将复杂的用户意图拆解为并行的执行蓝图，路由给专门的底层特工节点（Pods），并将执行结果汇总为极具操作性的战略指导方针（即“锦囊三策”）。
 
 ## 🌟 核心特性
 
