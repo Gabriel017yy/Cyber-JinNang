@@ -3,7 +3,7 @@
   <p><em>极简主义的算法官僚体系，重塑 AI 协同决策</em></p>
 
   <p>
-    <a href="README.md">🇺🇸 English</a> | <a href="README_zh.md">🇨🇳 简体中文</a>
+    <a href="https://github.com/Gabriel017yy/Cyber-JinNang/blob/main/README.md">🇺🇸 English</a> | <a href="https://github.com/Gabriel017yy/Cyber-JinNang/blob/main/README_zh.md">🇨🇳 简体中文</a>
   </p>
 
   <p>
