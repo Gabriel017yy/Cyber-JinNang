@@ -6,17 +6,16 @@ import { getModel, getEnvApiKey } from "@mariozechner/pi-ai";
 import chalk from "chalk";
 
 /**
- * Cyber-VSM CLI 入口文件
+ * 赛博锦囊 (Cyber-Stratagem) CLI 入口文件
  * 负责读取环境变量、初始化模型驱动、接收用户意图并启动协调器。
  */
 async function main() {
     console.clear();
-    console.log(`
+    console.log(chalk.cyanBright.bold(`
 ======================================================
-  🏛️  Cyber-VSM (赛博决策引擎) - Alpha v1.0
-  [神谕核] 规划 | [神盾核] 封驳 | [枢纽核] 调度
+     ⛩️  赛博锦囊 (Cyber-Stratagem) - 决策启动
 ======================================================
-`);
+`));
 
     // 默认使用 pi-mono 原生支持的 minimax-cn:MiniMax-M2.7
     let targetProvider = "minimax-cn";

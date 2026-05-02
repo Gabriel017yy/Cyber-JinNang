@@ -1,4 +1,4 @@
-# Cyber-VSM (Cybernetic Viable System Model)
+# Cyber-Stratagem (Project JinNang)
 
 [🇨🇳 简体中文](README_zh.md) | [🇺🇸 English](README.md)
 
@@ -8,7 +8,7 @@
 
 A minimalist, high-performance Multi-Agent orchestration engine inspired by the Tang Dynasty's "Three Departments and Six Ministries" bureaucracy and Stafford Beer's Viable System Model (VSM). 
 
-Cyber-VSM is designed to replace traditional chatbot interactions with an **algorithmic bureaucracy**. It dynamically decomposes complex user intents into parallel execution blueprints, routes them to specialized executor pods, and synthesizes the results into actionable strategic guidelines.
+Cyber-Stratagem (also known by its Chinese codename "Cyber-JinNang" / 赛博锦囊) is designed to replace traditional chatbot interactions with an **algorithmic bureaucracy**. It dynamically decomposes complex user intents into parallel execution blueprints, routes them to specialized executor pods, and synthesizes the results into actionable strategic guidelines.
 
 ## 🌟 Core Features
 
@@ -76,7 +76,7 @@ npm start
 ## 🧠 Design Philosophy
 
 1. **Occam's Razor**: "如无必要，勿增实体" (Do not multiply entities beyond necessity). No redundant agents, no unnecessary LLM loops. Features like System Reflection piggyback on existing LLM calls to achieve zero-cost evolution.
-2. **Determinism over Magic**: LLMs are unpredictable. Cyber-VSM cages them using strict JSON schemas and validation loops. If an agent outputs malformed data, it is automatically corrected or soft-failed without crashing the system.
+2. **Determinism over Magic**: LLMs are unpredictable. Cyber-Stratagem cages them using strict JSON schemas and validation loops. If an agent outputs malformed data, it is automatically corrected or soft-failed without crashing the system.
 3. **Actionable Outputs**: Moves beyond binary "Approve/Reject" recommendations. Outputs actionable, multi-perspective strategic guidelines ("锦囊三策").
 
 ## 🗺️ Roadmap
