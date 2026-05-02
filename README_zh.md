@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>📜 赛博锦囊 (Cyber-Stratagem)</h1>
+  <h1>📜 赛博锦囊 (Cyber-JinNang)</h1>
   <p><em>极简主义的算法官僚体系，重塑 AI 协同决策</em></p>
 
   <p>
@@ -13,7 +13,7 @@
   </p>
 </div>
 
-**赛博锦囊** (英文代号: Cyber-Stratagem) 是一个极简主义、高性能的多智能体（Multi-Agent）编排引擎。其架构灵感源自大唐的“三省六部制”以及 Stafford Beer 的控制论“可见系统模型（VSM）”。
+**赛博锦囊** (代号: Cyber-JinNang / Cyber-Stratagem) 是一个极简主义、高性能的多智能体（Multi-Agent）编排引擎。其架构灵感源自大唐的“三省六部制”以及 Stafford Beer 的控制论“可见系统模型（VSM）”。
 
 它旨在用**算法官僚体系**取代传统的聊天机器人交互，能够动态地将复杂的用户意图拆解为并行的执行蓝图，路由给专门的底层特工节点（Pods），并将执行结果汇总为极具操作性的战略指导方针（即“锦囊三策”）。
 
