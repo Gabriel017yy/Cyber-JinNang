@@ -76,8 +76,12 @@ function createPodAgent(model: Model<any>, apiKey: string | undefined, systemPro
     // 订阅事件并推送到 Dashboard
     agent.subscribe((event) => {
         const updateLine = (statusText: string, icon = "⚡️", color = chalk.cyan) => {
-            // 截取最后 60 个字符，实现滚动效果
-            const displayStream = streamText.length > 60 ? "..." + streamText.substring(streamText.length - 57) : streamText;
+            // 终端折行会导致 Dashboard 的 moveCursor 计算失效，出现无限刷屏。
+            // 因为中文字符占2个宽度，为了适配 80 列宽的终端，这里严格限制最大字符数为 25。
+            const MAX_CHARS = 25;
+            const displayStream = streamText.length > MAX_CHARS 
+                ? "..." + streamText.substring(streamText.length - (MAX_CHARS - 3)) 
+                : streamText;
             dashboard.update(podName, `${color(`[${icon} ${podName}]`)} ${color.bold(statusText)}\n   ↳ 💭 ${chalk.gray.italic(displayStream)}`);
         };
 
