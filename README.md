@@ -84,11 +84,12 @@ cyber-jinnang
 ```
 *(Or `npm start` if running locally)*
 
-## 🧠 Design Philosophy
+## 🧠 Design Philosophy & Trade-offs
 
 1. **Occam's Razor**: "如无必要，勿增实体" (Do not multiply entities beyond necessity). No redundant agents, no unnecessary LLM loops. Features like System Reflection piggyback on existing LLM calls to achieve zero-cost evolution.
 2. **Determinism over Magic**: LLMs are unpredictable. Cyber-Stratagem cages them using strict JSON schemas and validation loops. If an agent outputs malformed data, it is automatically corrected or soft-failed without crashing the system.
 3. **Actionable Outputs**: Moves beyond binary "Approve/Reject" recommendations. Outputs actionable, multi-perspective strategic guidelines ("锦囊三策").
+4. **Dependency Trade-off (pi-mono)**: We intentionally chose `@mariozechner/pi-mono` as our foundational LLM driver because of its elegant, minimalistic abstraction over provider APIs. While this creates a hard dependency (and potential ceiling) tied to the `pi-mono` ecosystem, our core business logic—the bureaucratic routing, prompts, and JSON schemas—is entirely decoupled. If `pi-mono` were ever deprecated, the adapter layer in `orchestrator.ts` can be cleanly swapped for the Vercel AI SDK or LangChain with minimal migration overhead.
 
 ## 🗺️ Roadmap
 
