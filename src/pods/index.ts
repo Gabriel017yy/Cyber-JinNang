@@ -31,13 +31,15 @@ class Dashboard {
         }
         
         let output = "";
+        let lineCount = 0;
         this.states.forEach((text) => {
             output += text + "\n";
+            lineCount += text.split("\n").length;
         });
         
         if (output) {
             process.stdout.write(output);
-            this.linesPrinted = this.states.size;
+            this.linesPrinted = lineCount;
         } else {
             this.linesPrinted = 0;
         }
@@ -69,16 +71,36 @@ function createPodAgent(model: Model<any>, apiKey: string | undefined, systemPro
         getApiKey: () => apiKey
     });
 
+    let streamText = "等待神经信号...";
+    
     // 订阅事件并推送到 Dashboard
     agent.subscribe((event) => {
+        const updateLine = (statusText: string, icon = "⚡️", color = chalk.cyan) => {
+            // 截取最后 60 个字符，实现滚动效果
+            const displayStream = streamText.length > 60 ? "..." + streamText.substring(streamText.length - 57) : streamText;
+            dashboard.update(podName, `${color(`[${icon} ${podName}]`)} ${color.bold(statusText)}\n   ↳ 💭 ${chalk.gray.italic(displayStream)}`);
+        };
+
         if (event.type === "agent_start") {
-            dashboard.update(podName, chalk.cyan.italic(`[⚡️ ${podName}] 神经突触已连接，正在思考...`));
+            updateLine("神经突触已连接，正在思考...");
         } else if (event.type === "tool_execution_start") {
-            dashboard.update(podName, chalk.magenta.italic(`[⚙️ ${podName}] 正在调用工具...`));
+            streamText = `[Tool: ${event.toolName}] 正在与外部世界握手...`;
+            updateLine("正在调用外部工具...", "⚙️", chalk.magenta);
         } else if (event.type === "tool_execution_end") {
-            dashboard.update(podName, chalk.cyan.italic(`[⚡️ ${podName}] 工具执行完毕，正在进行总结...`));
+            streamText = "工具调用返回，正在吸收情报...";
+            updateLine("工具执行完毕，正在进行总结...");
+        } else if (event.type === "message_update") {
+            // 捕获大模型的实时输出流
+            if (event.assistantMessageEvent.type === "text_start") {
+                streamText = "";
+            } else if (event.assistantMessageEvent.type === "text_delta") {
+                const delta = (event.assistantMessageEvent as any).delta || "";
+                streamText += delta.replace(/\n/g, ' ');
+                updateLine("正在高频脑电波推演中...");
+            }
         } else if (event.type === "agent_end") {
-            dashboard.remove(podName);
+            const finalLength = streamText.length;
+            dashboard.update(podName, `${chalk.green(`[✅ ${podName}]`)} ${chalk.green.bold("执行完成!")}\n   ↳ 📜 ${chalk.gray.italic(`最终汇编了包含 ${finalLength} 个字符的底层研报。`)}`);
         }
     });
 
