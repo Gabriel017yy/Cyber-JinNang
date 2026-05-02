@@ -1,6 +1,8 @@
 import "dotenv/config";
 import * as readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
+import * as fs from "node:fs";
+import * as path from "node:path";
 import { Orchestrator } from "./orchestrator.js";
 import { getModel, getEnvApiKey } from "@mariozechner/pi-ai";
 import chalk from "chalk";
@@ -17,53 +19,95 @@ async function main() {
 ======================================================
 `));
 
-    // 默认使用 pi-mono 原生支持的 minimax-cn:MiniMax-M2.7
-    let targetProvider = "minimax-cn";
-    let targetModelId = "MiniMax-M2.7";
-    let apiKey = getEnvApiKey("minimax-cn");
+    const rl = readline.createInterface({ input, output });
 
-    // 如果没有配置 MiniMax，回退检查其他提供商
-    if (!apiKey) {
-        if (process.env.DEEPSEEK_API_KEY) {
-            targetProvider = "deepseek";
-            targetModelId = "deepseek-chat";
-            apiKey = process.env.DEEPSEEK_API_KEY;
-        } else if (process.env.QWEN_API_KEY) {
-            targetProvider = "qwen";
-            targetModelId = "qwen-max";
-            apiKey = process.env.QWEN_API_KEY;
+    async function runSetup() {
+        console.log(chalk.yellowBright(`\n[引导向导] 检测到未配置神经元节点或触发了重新配置指令。`));
+        console.log(`请选择您要连接的大模型引擎:`);
+        console.log(`  1. MiniMax (默认推荐)`);
+        console.log(`  2. DeepSeek`);
+        console.log(`  3. Qwen`);
+        const choice = await rl.question(chalk.gray(">> 请输入序号 (默认 1): "));
+        
+        let envKey = "MINIMAX_CN_API_KEY";
+        let providerName = "MiniMax";
+        if (choice.trim() === "2") { envKey = "DEEPSEEK_API_KEY"; providerName = "DeepSeek"; }
+        else if (choice.trim() === "3") { envKey = "QWEN_API_KEY"; providerName = "Qwen"; }
+
+        const key = await rl.question(chalk.gray(`>> 请粘贴您的 ${providerName} API Key: `));
+        if (!key.trim()) {
+            console.log(chalk.red("配置取消。"));
+            return false;
+        }
+
+        const envPath = path.join(process.cwd(), ".env");
+        fs.appendFileSync(envPath, `\n${envKey}=${key.trim()}\n`);
+        process.env[envKey] = key.trim();
+        console.log(chalk.green(`✅ [系统] 配置成功！密钥已存入 .env 文件。\n`));
+        return true;
+    }
+
+    function initOrchestrator(): Orchestrator | null {
+        let targetProvider = "minimax-cn";
+        let targetModelId = "MiniMax-M2.7";
+        let apiKey = getEnvApiKey("minimax-cn");
+
+        if (!apiKey) {
+            if (process.env.DEEPSEEK_API_KEY) { targetProvider = "deepseek"; targetModelId = "deepseek-chat"; apiKey = process.env.DEEPSEEK_API_KEY; }
+            else if (process.env.QWEN_API_KEY) { targetProvider = "qwen"; targetModelId = "qwen-max"; apiKey = process.env.QWEN_API_KEY; }
+        }
+
+        if (!apiKey) return null;
+
+        console.log(`🔌 [SYSTEM] 正在连接大模型神经节点: ${targetProvider} / ${targetModelId}...`);
+        const model = getModel(targetProvider as any, targetModelId as any);
+        if (!model) {
+            console.error(`❌ 严重错误: pi-mono 不支持该模型 ${targetProvider}`);
+            return null;
+        }
+        return new Orchestrator(model, apiKey);
+    }
+
+    let orchestrator = initOrchestrator();
+
+    if (!orchestrator) {
+        const success = await runSetup();
+        if (success) orchestrator = initOrchestrator();
+        if (!orchestrator) {
+            console.error("❌ 未能成功初始化大模型，系统退出。");
+            process.exit(1);
         }
     }
 
-    if (!apiKey) {
-        console.error("❌ 严重错误: 未检测到 API_KEY。请检查项目根目录的 .env 文件配置！");
-        process.exit(1);
-    }
-
-    console.log(`🔌 [SYSTEM] 正在通过 pi-mono 连接大模型神经节点: ${targetProvider} / ${targetModelId}...`);
-
-    // 直接通过 pi-mono 内置的模型注册表获取模型
-    // pi-mono 已经把厂商API差异（如MiniMax走的其实是Anthropic兼容接口）完全抹平了
-    const model = getModel(targetProvider as any, targetModelId as any);
-    
-    if (!model) {
-        console.error(`❌ 严重错误: pi-mono 不支持该模型 ${targetProvider} / ${targetModelId}`);
-        process.exit(1);
-    }
-
-    const orchestrator = new Orchestrator(model, apiKey);
-
-    // 3. 启动交互式 CLI
-    const rl = readline.createInterface({ input, output });
-
-    console.log(`✅ [SYSTEM] 神经连接完毕。陛下，请问有何国事需要裁决？(输入 'exit' 退出)\n`);
+    console.log(`✅ [SYSTEM] 神经连接完毕。陛下，请问有何国事需要裁决？(输入 '/help' 查看可用指令)\n`);
 
     while (true) {
         const intent = await rl.question(">> ");
+        const command = intent.trim().toLowerCase();
         
-        if (intent.trim().toLowerCase() === "exit") {
+        if (command === "/exit" || command === "exit") {
             console.log("\n[SYSTEM] 系统关闭。退朝。");
             break;
+        }
+        
+        if (command === "/clear") {
+            console.clear();
+            continue;
+        }
+        
+        if (command === "/help") {
+            console.log(chalk.gray(`\n系统指令: \n  /login - 重新配置 API Key\n  /clear - 清理屏幕\n  /exit  - 退出系统\n`));
+            continue;
+        }
+        
+        if (command === "/login") {
+            await runSetup();
+            const newOrch = initOrchestrator();
+            if (newOrch) {
+                orchestrator = newOrch;
+                console.log(chalk.green(`✅ 已成功切换神经节点！\n`));
+            }
+            continue;
         }
 
         if (!intent.trim()) continue;
