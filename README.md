@@ -22,28 +22,28 @@ Cyber-VSM is designed to replace traditional chatbot interactions with an **algo
 
 ```mermaid
 graph TD
-    User([User Intent]) --> Oracle[Oracle: Strategic Planner]
+    User(["User Intent"]) --> Oracle["Oracle: Strategic Planner"]
     
     subgraph Control Layer [Control Layer]
-        Oracle --> |JSON Blueprint| Aegis{Aegis: Auditor}
+        Oracle -->|JSON Blueprint| Aegis{"Aegis: Auditor"}
         Aegis -->|Veto| Oracle
     end
     
     subgraph Execution Layer [Concurrent Pods]
-        Aegis -->|Approve| P1[Alpha: Intelligence Scout]
-        Aegis -->|Approve| P2[Beta: Quantitative Quant]
-        Aegis -->|Approve| P3[Gamma: Devil's Advocate]
+        Aegis -->|Approve| P1["Alpha: Intelligence Scout"]
+        Aegis -->|Approve| P2["Beta: Quantitative Quant"]
+        Aegis -->|Approve| P3["Gamma: Devil's Advocate"]
     end
     
     subgraph Synthesis Layer [Synthesis Layer]
-        P1 --> Nexus[Nexus: Synthesizer]
+        P1 --> Nexus["Nexus: Synthesizer"]
         P2 --> Nexus
         P3 --> Nexus
     end
     
-    Nexus --> |1. Actionable Guidelines| User
-    Nexus --> |2. System Reflection| Memory[(cyber_memory.json)]
-    Memory -.-> |Experience Injection| Oracle
+    Nexus -->|1. Actionable Guidelines| User
+    Nexus -->|2. System Reflection| Memory[("cyber_memory.json")]
+    Memory -.->|Experience Injection| Oracle
 ```
 
 ## 🚀 Getting Started

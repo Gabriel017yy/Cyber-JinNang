@@ -22,28 +22,28 @@ Cyber-VSM 旨在用**算法官僚体系**取代传统的聊天机器人交互。
 
 ```mermaid
 graph TD
-    User([用户意图]) --> Oracle[神谕核: 战略规划]
+    User(["用户意图"]) --> Oracle["神谕核: 战略规划"]
     
     subgraph 控制层 [Control Layer]
-        Oracle --> |JSON 蓝图| Aegis{神盾核: 安全审计}
+        Oracle -->|JSON 蓝图| Aegis{"神盾核: 安全审计"}
         Aegis -->|一票否决| Oracle
     end
     
     subgraph 执行层 [Concurrent Pods]
-        Aegis -->|审批通过| P1[Alpha: 情报探测特工]
-        Aegis -->|审批通过| P2[Beta: 量化演算特工]
-        Aegis -->|审批通过| P3[Gamma: 风险对抗特工]
+        Aegis -->|审批通过| P1["Alpha: 情报探测特工"]
+        Aegis -->|审批通过| P2["Beta: 量化演算特工"]
+        Aegis -->|审批通过| P3["Gamma: 风险对抗特工"]
     end
     
     subgraph 决策层 [Synthesis Layer]
-        P1 --> Nexus[枢纽核: 情报汇总]
+        P1 --> Nexus["枢纽核: 情报汇总"]
         P2 --> Nexus
         P3 --> Nexus
     end
     
-    Nexus --> |1. 锦囊三策 (行动指南)| User
-    Nexus --> |2. 系统反思 (最佳实践)| Memory[(cyber_memory.json)]
-    Memory -.-> |历史经验挂载注入| Oracle
+    Nexus -->|1. 锦囊三策| User
+    Nexus -->|2. 系统反思| Memory[("cyber_memory.json")]
+    Memory -.->|历史经验挂载注入| Oracle
 ```
 
 ## 🚀 快速开始
