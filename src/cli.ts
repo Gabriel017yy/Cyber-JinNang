@@ -43,7 +43,15 @@ async function main() {
         const envPath = path.join(process.cwd(), ".env");
         fs.appendFileSync(envPath, `\n${envKey}=${key.trim()}\n`);
         process.env[envKey] = key.trim();
-        console.log(chalk.green(`✅ [系统] 配置成功！密钥已存入 .env 文件。\n`));
+
+        console.log(chalk.cyanBright(`\n[可选配置] Alpha Scout (情报探测特工) 依赖 Tavily 搜索引擎进行全网数据抓取。`));
+        const tavilyKey = await rl.question(chalk.gray(`>> 请粘贴 Tavily API Key (若暂无，请直接按回车跳过): `));
+        if (tavilyKey.trim()) {
+            fs.appendFileSync(envPath, `TAVILY_API_KEY=${tavilyKey.trim()}\n`);
+            process.env.TAVILY_API_KEY = tavilyKey.trim();
+        }
+
+        console.log(chalk.green(`✅ [系统] 神经节点配置完毕！密钥已存入本地 .env 文件。\n`));
         return true;
     }
 
