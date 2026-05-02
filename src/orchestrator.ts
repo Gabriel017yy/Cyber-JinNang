@@ -2,6 +2,8 @@ import { Agent } from "@mariozechner/pi-agent-core";
 import { type Model } from "@mariozechner/pi-ai";
 import chalk from "chalk";
 import ora from "ora";
+import fs from "fs/promises";
+import path from "path";
 import { ORACLE_SYSTEM_PROMPT } from "./prompts/oracle.js";
 import { AEGIS_SYSTEM_PROMPT } from "./prompts/aegis.js";
 import { NEXUS_SYSTEM_PROMPT } from "./prompts/nexus.js";
@@ -76,6 +78,41 @@ export class Orchestrator {
         }
     }
 
+    private async loadSystemMemory(): Promise<string> {
+        try {
+            const memPath = path.join(process.cwd(), "data", "cyber_memory.json");
+            const raw = await fs.readFile(memPath, 'utf8');
+            const data = JSON.parse(raw);
+            if (data.systemReflections && data.systemReflections.length > 0) {
+                return JSON.stringify(data.systemReflections, null, 2);
+            }
+        } catch (e) {
+            // 文件不存在或为空
+        }
+        return "";
+    }
+
+    private async saveSystemMemory(reflection: any) {
+        if (!reflection || !reflection.isValuable) return;
+        try {
+            const memDir = path.join(process.cwd(), "data");
+            await fs.mkdir(memDir, { recursive: true });
+            const memPath = path.join(memDir, "cyber_memory.json");
+            let data: any = { systemReflections: [] };
+            try {
+                const raw = await fs.readFile(memPath, 'utf8');
+                data = JSON.parse(raw);
+                if (!data.systemReflections) data.systemReflections = [];
+            } catch (e) {}
+            
+            data.systemReflections.push(reflection);
+            await fs.writeFile(memPath, JSON.stringify(data, null, 2), 'utf8');
+            console.log(`\n${chalk.green.bold('💾 [系统进化]')} 已成功提炼并沉淀新维度的战略方法论: [${chalk.cyanBright(reflection.category)}]`);
+        } catch (e) {
+            console.error(chalk.red("保存系统记忆失败"), e);
+        }
+    }
+
     /**
      * 核心流转循环 (逻辑保持不变，体现了 Provider 抹平的威力)
      */
@@ -86,6 +123,13 @@ export class Orchestrator {
         let approved = false;
         let finalBlueprint: Blueprint | null = null;
         let currentPrompt = `用户意图如下，请生成严格的 JSON 执行蓝图:\n${intent}`;
+
+        // Phase 4: 记忆融合 (Memory Fusion)
+        const memoryStr = await this.loadSystemMemory();
+        if (memoryStr) {
+            currentPrompt += `\n\n<EXPERIENCE_MEMORY>\n以下是系统在历史决策中沉淀出的高价值分析方法论与并发拓扑（System Reflection）。请检查是否有与当前意图相似的分类（category）。如果有，请严格参考其 optimalTopology 与 methodologySOP 来制定本次的 tasks 蓝图：\n${memoryStr}\n</EXPERIENCE_MEMORY>`;
+            console.log(`${chalk.gray.italic('🧠 [神谕核] 已挂载历史经验记忆库...')}`);
+        }
 
         while (!approved) {
             // --- Oracle 阶段 ---
@@ -158,6 +202,11 @@ export class Orchestrator {
             }
         }
         
+        // 尝试固化记忆
+        if (report?.systemReflection?.isValuable) {
+            await this.saveSystemMemory(report.systemReflection);
+        }
+
         return report;
     }
 

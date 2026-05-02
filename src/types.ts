@@ -106,4 +106,19 @@ export interface DecisionReport {
     
     /** 供 User 参考的具体行动指南（上中下三策） */
     recommendedActions: ActionGuideline[];
+
+    /** 
+     * 系统反思与记忆沉淀 (System Reflection)
+     * Nexus 根据当次执行结果总结出的最佳实践，用于未来 Oracle 的动态上下文注入。
+     */
+    systemReflection?: {
+        /** 当前任务是否有较高的经验沉淀价值（过滤掉无意义的日常闲聊） */
+        isValuable: boolean;
+        /** 该任务的领域分类，如 "Macroeconomics", "Geopolitics", "Code_Review" */
+        category: string;
+        /** 总结出的分析方法论 SOP */
+        methodologySOP: string;
+        /** 沉淀出的最优并发神经元拓扑 (例如: "2x Alpha_Scout + 1x Beta_Quant") */
+        optimalTopology: string;
+    };
 }

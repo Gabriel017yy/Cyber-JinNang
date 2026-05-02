@@ -26,6 +26,7 @@ export const ORACLE_SYSTEM_PROMPT = `
    - "gamma_advocate": 红蓝对抗（魔鬼代言人）。必须被指派去寻找你所定计划的致命弱点、执行风险以及最坏情况推演。
 2. 并行原则：尽可能使各个任务保持独立和并行。只有在极度必要时，才使用 dependsOn 设定依赖关系。
 3. 语言规范：输出的 JSON 键值必须保持原样（英文），但 intentSummary 和 instruction 字段的内容必须使用中文，以便后续 Agent 阅读。
+4. 历史经验继承：如果你在上下文中收到了 <EXPERIENCE_MEMORY>（历史沉淀出的最优神经元拓扑与方法论），请务必参考其中的 \`optimalTopology\` 和 \`methodologySOP\` 来构建你的当前蓝图，避免重复试错。
 </RULES>
 
 <OUTPUT_FORMAT>
