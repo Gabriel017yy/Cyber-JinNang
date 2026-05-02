@@ -87,6 +87,13 @@ export interface TaskResult {
     softError?: string; 
 }
 
+export interface ActionGuideline {
+    /** (中文) 行动方针简述，如 "立即平仓" / "启动对冲" / "静观其变" */
+    title: string;
+    /** (中文) 具体执行建议与深层依据 */
+    description: string;
+}
+
 export interface DecisionReport {
     /** 对应的蓝图ID */
     blueprintId: string;
@@ -97,6 +104,6 @@ export interface DecisionReport {
     /** 三个视角（情报、数据、风险）的详细结论汇总 */
     podResults: TaskResult[];
     
-    /** 供 User 一键敲定的选项 */
-    recommendedAction: "APPROVE" | "REJECT" | "REQUIRE_MORE_INFO";
+    /** 供 User 参考的具体行动指南（上中下三策） */
+    recommendedActions: ActionGuideline[];
 }

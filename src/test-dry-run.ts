@@ -85,7 +85,12 @@ async function main() {
             { taskId: "t-002", assignee: "beta_quant", output: "预期薪资涨幅可达 20%" },
             { taskId: "t-003", assignee: "gamma_advocate", output: "存在试用期因HC锁卡被直接优化的风险" }
         ],
-        recommendedAction: "REJECT"
+        recommendedActions: [
+            {
+                title: "立即驳回",
+                description: "依据 Gamma 风控局判定，此时入局存在本金归零风险，建议暂缓。"
+            }
+        ]
     };
 
     // 3. 将这些 Mock 数据依次注入到虚拟模型的“弹夹”里

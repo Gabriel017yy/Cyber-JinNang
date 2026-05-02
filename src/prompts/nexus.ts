@@ -33,7 +33,10 @@ interface DecisionReport {
     output: string; // (中文) 该维度核心发现的概括
     softError?: string; 
   }>;
-  recommendedAction: "APPROVE" | "REJECT" | "REQUIRE_MORE_INFO";
+  recommendedActions: Array<{
+    title: string; // (中文) 行动方针简述，如 "立即平仓" / "启动对冲"
+    description: string; // (中文) 具体执行建议与深层依据
+  }>; // 必须给出 1 到 3 条具体的、可落地的行动指南（犹如呈给皇帝的上、中、下三策）。
 }
 </OUTPUT_FORMAT>
 `.trim();

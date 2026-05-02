@@ -3,6 +3,7 @@ import * as readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
 import { Orchestrator } from "./orchestrator.js";
 import { getModel, getEnvApiKey } from "@mariozechner/pi-ai";
+import chalk from "chalk";
 
 /**
  * Cyber-VSM CLI 入口文件
@@ -85,7 +86,15 @@ async function main() {
                 console.log(`   - [${icon}]: ${r.output}`);
             });
             
-            console.log(`\n🎯 神谕建议动作: ${finalReport.recommendedAction}`);
+            console.log(`\n🎯 枢纽核建议动作 (锦囊三策):`);
+            if (finalReport.recommendedActions && finalReport.recommendedActions.length > 0) {
+                finalReport.recommendedActions.forEach((action, idx) => {
+                    console.log(`   [策${idx + 1}] ${chalk.cyan(action.title)}`);
+                    console.log(`         ${chalk.gray.italic(action.description)}`);
+                });
+            } else {
+                console.log(`   [提示] 未生成明确的行动建议。`);
+            }
             console.log(`==============================================\n`);
 
         } catch (e) {
