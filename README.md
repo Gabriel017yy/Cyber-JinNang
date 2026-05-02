@@ -61,24 +61,28 @@ graph TD
 
 ### Installation
 
+**Global Installation (Recommended)**
 ```bash
-git clone https://github.com/Gabriel017yy/cyber-jinnang.git
+npm install -g cyber-jinnang
+cyber-jinnang
+```
+
+**Local Development**
+```bash
+git clone https://github.com/Gabriel017yy/Cyber-JinNang.git
 cd cyber-jinnang
 npm install
 ```
 
 ### Configuration
-Create a `.env` file in the root directory:
-```env
-MINIMAX_CN_API_KEY=your_api_key_here
-# Optional: TAVILY_API_KEY for search capabilities
-```
+On first run (or by typing `/login`), a built-in interactive wizard will guide you to configure your LLM Provider and API keys, saving them securely to a local `.env` file.
 
 ### Usage
 Run the CLI orchestrator:
 ```bash
-npm start
+cyber-jinnang
 ```
+*(Or `npm start` if running locally)*
 
 ## 🧠 Design Philosophy
 

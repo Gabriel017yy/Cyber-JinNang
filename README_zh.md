@@ -59,26 +59,30 @@ graph TD
 - Node.js >= 20.0.0
 - npm 或 pnpm
 
-### 本地安装
+### 安装方式
 
+**全局安装 (推荐)**
 ```bash
-git clone https://github.com/Gabriel017yy/cyber-jinnang.git
+npm install -g cyber-jinnang
+cyber-jinnang
+```
+
+**本地开发**
+```bash
+git clone https://github.com/Gabriel017yy/Cyber-JinNang.git
 cd cyber-jinnang
 npm install
 ```
 
-### 配置环境变量
-在项目根目录创建一个 `.env` 文件：
-```env
-MINIMAX_CN_API_KEY=你的_api_key
-# 可选: TAVILY_API_KEY 用于搜索引擎工具
-```
+### 首次配置
+系统内置了交互式引导向导。首次运行或在系统内输入 `/login`，系统会指引您选择大模型节点并粘贴 API Key，并安全地持久化存储在本地。
 
 ### 运行系统
 启动 CLI 调度引擎：
 ```bash
-npm start
+cyber-jinnang
 ```
+*(如果是本地开发环境，则使用 `npm start`)*
 
 ## 🧠 设计哲学
 
