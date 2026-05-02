@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>⛩️ Cyber-JinNang — Cyber-Stratagem Engine</h1>
+  <h1>⛩️ Cyber-Stratagem</h1>
   <p><em>The Algorithmic Bureaucracy for Multi-Agent Orchestration</em></p>
 
   <p>
@@ -13,7 +13,7 @@
   </p>
 </div>
 
-**Cyber-JinNang** (Cyber-Stratagem) is a minimalist, high-performance Multi-Agent orchestration engine inspired by the Tang Dynasty's "Three Departments and Six Ministries" bureaucracy and Stafford Beer's Viable System Model (VSM). 
+**Cyber-Stratagem** (Chinese: 赛博锦囊) is a minimalist, high-performance Multi-Agent orchestration engine inspired by the Tang Dynasty's "Three Departments and Six Ministries" bureaucracy and Stafford Beer's Viable System Model (VSM). 
 
 It is designed to replace traditional chatbot interactions with an **algorithmic bureaucracy**. It dynamically decomposes complex user intents into parallel execution blueprints, routes them to specialized executor pods, and synthesizes the results into actionable strategic guidelines.
 
