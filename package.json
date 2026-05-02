@@ -1,6 +1,6 @@
 {
   "name": "cyber-jinnang",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "赛博锦囊 (Cyber-Stratagem) - 极简主义 AI 朝廷决策引擎",
   "type": "module",
   "main": "dist/cli.js",
