@@ -1,6 +1,7 @@
 import { Agent } from "@mariozechner/pi-agent-core";
 import { type Model } from "@mariozechner/pi-ai";
 import chalk from "chalk";
+import ora from "ora";
 import { ORACLE_SYSTEM_PROMPT } from "./prompts/oracle.js";
 import { AEGIS_SYSTEM_PROMPT } from "./prompts/aegis.js";
 import { NEXUS_SYSTEM_PROMPT } from "./prompts/nexus.js";
@@ -52,18 +53,24 @@ export class Orchestrator {
      */
     private async withTimer<T>(prefix: string, task: () => Promise<T>): Promise<T> {
         let seconds = 0;
-        process.stdout.write(prefix);
+        const spinner = ora({
+            text: `${prefix} [0s]...`,
+            spinner: 'bouncingBar',
+            color: 'cyan'
+        }).start();
         
         const timer = setInterval(() => {
             seconds++;
-            // \r 回到行首，\x1b[K 清除当前行剩余内容
-            process.stdout.write(`\r\x1b[K${prefix} [${seconds}s]...`);
+            spinner.text = `${prefix} [${seconds}s]...`;
         }, 1000);
 
         try {
             const result = await task();
-            process.stdout.write(`\r\x1b[K${prefix} [${seconds}s] ✅ 完成！\n`);
+            spinner.succeed(chalk.green.bold(`${prefix} [${seconds}s] ✅ 完成！`));
             return result;
+        } catch (e) {
+            spinner.fail(chalk.red.bold(`${prefix} [${seconds}s] ❌ 失败！`));
+            throw e;
         } finally {
             clearInterval(timer);
         }

@@ -73,32 +73,38 @@ async function main() {
             // 启动核心决策循环！
             const finalReport = await orchestrator.runDecisionLoop(intent);
             
-            console.log(`\n==============================================`);
-            console.log(`📜 [最终决策奏折]`);
-            console.log(`==============================================`);
-            const summary = finalReport.executiveSummary || (finalReport as any).summary || "未生成有效摘要";
-            console.log(`💡 核心摘要: \n   ${summary}\n`);
+            console.log(`\n${chalk.magentaBright.bold('======================================================')}`);
+            console.log(` ${chalk.bgMagenta.white.bold(' 📜 最终决策奏折 (DECISION REPORT) ')}`);
+            console.log(`${chalk.magentaBright.bold('======================================================')}`);
             
-            console.log(`📊 底层情报汇编:`);
+            const summary = finalReport.executiveSummary || (finalReport as any).summary || "未生成有效摘要";
+            console.log(`\n${chalk.yellowBright.bold('💡 核心摘要 (Executive Summary):')}`);
+            console.log(`   ${chalk.whiteBright.italic(summary)}`);
+            
+            console.log(`\n${chalk.blueBright.bold('📊 底层情报汇编 (Pod Intelligence):')}`);
             finalReport.podResults.forEach(r => {
-                const icon = r.assignee === "alpha_scout" ? "🕵️ 情报" : 
-                             r.assignee === "beta_quant" ? "🧮 数据" : "⚖️ 风控";
-                console.log(`   - [${icon}]: ${r.output}`);
+                let icon = "🕵️ 情报";
+                let color = chalk.cyan;
+                if (r.assignee === "beta_quant") { icon = "🧮 数据"; color = chalk.green; }
+                if (r.assignee === "gamma_advocate") { icon = "⚖️ 风控"; color = chalk.red; }
+                
+                console.log(`   ${color(`[${icon}]`)} ${chalk.white(r.output)}`);
             });
             
-            console.log(`\n🎯 枢纽核建议动作 (锦囊三策):`);
+            console.log(`\n${chalk.redBright.bold('🎯 枢纽核建议动作 (锦囊三策):')}`);
             if (finalReport.recommendedActions && finalReport.recommendedActions.length > 0) {
                 finalReport.recommendedActions.forEach((action, idx) => {
-                    console.log(`   [策${idx + 1}] ${chalk.cyan(action.title)}`);
+                    const strategyColor = idx === 0 ? chalk.bgRedBright.white.bold : (idx === 1 ? chalk.bgYellow.black.bold : chalk.bgBlue.white.bold);
+                    console.log(`   ${strategyColor(` [策${idx + 1}] `)} ${chalk.cyanBright.bold(action.title)}`);
                     console.log(`         ${chalk.gray.italic(action.description)}`);
                 });
             } else {
-                console.log(`   [提示] 未生成明确的行动建议。`);
+                console.log(`   ${chalk.red.italic('[提示] 未生成明确的行动建议。')}`);
             }
-            console.log(`==============================================\n`);
+            console.log(`\n${chalk.magentaBright.bold('======================================================')}\n`);
 
         } catch (e) {
-            console.error(`\n❌ [SYSTEM ERROR] 系统运转崩溃:`, e);
+            console.error(`\n${chalk.bgRed.white.bold(' ❌ [SYSTEM ERROR] 系统运转崩溃: ')}`, e);
         }
     }
 
