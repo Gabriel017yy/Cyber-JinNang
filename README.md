@@ -62,8 +62,8 @@ graph TD
 ### Installation
 
 ```bash
-git clone https://github.com/Gabriel017yy/cyber-vsm.git
-cd cyber-vsm
+git clone https://github.com/Gabriel017yy/cyber-jinnang.git
+cd cyber-jinnang
 npm install
 ```
 
