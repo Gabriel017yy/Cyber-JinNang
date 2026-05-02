@@ -13,7 +13,7 @@ async function main() {
     console.clear();
     console.log(chalk.cyanBright.bold(`
 ======================================================
-     ⛩️  赛博锦囊 (Cyber-Stratagem) - 决策启动
+     📜  赛博锦囊 (Cyber-Stratagem) - 决策启动
 ======================================================
 `));
 

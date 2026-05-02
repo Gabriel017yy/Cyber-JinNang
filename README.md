@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>⛩️ Cyber-Stratagem</h1>
+  <h1>📜 Cyber-Stratagem</h1>
   <p><em>The Algorithmic Bureaucracy for Multi-Agent Orchestration</em></p>
 
   <p>

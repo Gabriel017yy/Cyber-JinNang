@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>⛩️ 赛博锦囊 (Cyber-Stratagem)</h1>
+  <h1>📜 赛博锦囊 (Cyber-Stratagem)</h1>
   <p><em>极简主义的算法官僚体系，重塑 AI 协同决策</em></p>
 
   <p>
