@@ -1,5 +1,7 @@
 # Cyber-VSM (Cybernetic Viable System Model)
 
+[🇨🇳 简体中文](README_zh.md) | [🇺🇸 English](README.md)
+
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue)
 ![pi-mono](https://img.shields.io/badge/Powered%20by-pi--mono-black)
 ![License](https://img.shields.io/badge/License-MIT-green)
